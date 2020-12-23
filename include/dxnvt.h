@@ -1,325 +1,296 @@
-/**
- * @file dxnvt.h ´óÑ¶¹«Ë¾ÍøÂçÊÓÆµÖÕ¶ËPC SDK½Ó¿Ú  
- *
- * Copyright (C) 2009 ±±¾©´óÑ¶¿Æ¼¼ÓÐÏÞ¹«Ë¾ 
- * 
- * @version 0.1
- * @date 2009.12.10
- *
- * @version 0.2
- * @date 2010.01.04 
- * -1. Ôö¼ÓÁËÖ¸¶¨±¾µØIP¹¦ÄÜ
- *
- * @version 1.0
- * @date 2011.01.05 
- * -1. Ôö¼ÓÁËÏûÏ¢ÉÏÏÂÎÄ
- * -2. ÄÚÖÃKeep Alive¹¦ÄÜ
- * -3. ÐÞ¸ÄÁËÉè±¸É¾³ý»úÖÆºÍÉ¾³ýº¯Êý½Ó¿Ú
- *
- * @version 1.1
- * @date 2011.02.08 
- * -1. ÐÞ¸ÄÁËDX_NVT_init_media_param½Ó¿Ú²ÎÊý
- * -2. Ôö¼ÓDX_NVT_get_device_base_info½Ó¿Ú
- * -3. Ôö¼ÓDX_NVT_get_tcp_local_addr½Ó¿Ú
- */
+
 #ifndef __DX_NVT_H__
 #define __DX_NVT_H__
 
-
 #ifdef _WIN32
-#define  DXSDKAPI  __stdcall
+#define DXSDKAPI __stdcall
 #else
-#define  DXSDKAPI  
-#endif 
-
+#define DXSDKAPI
+#endif
 
 #ifdef __cplusplus
 extern "C"
 {
 #endif
 
-
 #include "portable.h"
 #include "return.h"
 
-/** 
- * @name Ã½ÌåÀàÐÍ
+	/** 
+ * @name Ã½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
  * @{
  */
-typedef enum __STREAM_MEDIA_TYPE
-{
-	STREAM_MEDIA_INVALID = -1,
-	/** ¸´ºÏÃ½ÌåÊý¾Ý */
-	STREAM_MEDIA_COMPLEX = 0,
-	STREAM_MEDIA_VIDEO = 1,
-	STREAM_MEDIA_AUDIO,
-	STREAM_MEDIA_UART,
+	typedef enum __STREAM_MEDIA_TYPE
+	{
+		STREAM_MEDIA_INVALID = -1,
+		/** ï¿½ï¿½ï¿½ï¿½Ã½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
+		STREAM_MEDIA_COMPLEX = 0,
+		STREAM_MEDIA_VIDEO = 1,
+		STREAM_MEDIA_AUDIO,
+		STREAM_MEDIA_UART,
 
-	/** ×Ô¶¨ÒåÊý¾Ý */
-	STREAM_CUSTOM_DATA,
+		/** ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
+		STREAM_CUSTOM_DATA,
 
-	MEDIA_TYPE_PICTURE_BMP = 9,
-	MEDIA_TYPE_PICTURE_JPG = 10
-}STREAM_MEDIA_TYPE;
-/** 
+		MEDIA_TYPE_PICTURE_BMP = 9,
+		MEDIA_TYPE_PICTURE_JPG = 10
+	} STREAM_MEDIA_TYPE;
+	/** 
  * @}
  */
 
-/** 
- * @name Í¼Ïñ×¥ÅÄ¸ñÊ½
+	/** 
+ * @name Í¼ï¿½ï¿½×¥ï¿½Ä¸ï¿½Ê½
  * @{
  */
-typedef enum __SNAP_FORMAT
-{
-	SNAP_FORMAT_BMP  = 1,
-	SNAP_FORMAT_JPG = 2
-}SNAP_FORMAT;
-/*  
- * @}
- */ 
-
-/** 
- * @name Á÷´«ÊäÐ­Òé 
- * @{
- */
-typedef enum __STREAM_TRANS_PROTOCOL
-{
-	/** UDP µ¥²¥ Ô­Ê¼Á÷ */
-	UDP_UNICAST_RAW = 1,
-	/** UDP µ¥²¥ RTP ·â×° */ 
-	UDP_UNICAST_RTP,
-
-	/** UDP ×é²¥ Ô­Ê¼Á÷ */
-	UDP_MULTICAST_RAW,
-	/** UDP ×é²¥ RTP ·â×° */ 
-	UDP_MULTICAST_RTP,
-
-	/** UDP µ¥²¥ FEC Á÷ */
-	UDP_UNICAST_FEC = 10,
-	
-	/** TCP Ô­Ê¼Á÷ */
-	TCP_RAW = 20,
-	/** TCP RTP ·â×° */
-	TCP_RTP,
-	/** TCP ×Ô¶¨Òå¸ñÊ½ */ 
-	TCP_CUSTOM
-
-}STREAM_TRANS_PROTOCOL;
-/** 
+	typedef enum __SNAP_FORMAT
+	{
+		SNAP_FORMAT_BMP = 1,
+		SNAP_FORMAT_JPG = 2
+	} SNAP_FORMAT;
+	/*  
  * @}
  */
 
-/** 
- * @name Á÷´«Êä·½Ïò
+	/** 
+ * @name ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð­ï¿½ï¿½ 
  * @{
  */
-typedef enum __STREAM_TRASN_DIR
-{
-	/** ½ÓÊÕ, ¶ÔÓ¦Éè±¸±àÂëÍ¨µÀ */
-	STREAM_TRASN_POSITIVE = 0,
-	/** ·¢ËÍ£¬¶ÔÓ¦Éè±¸½âÂëÍ¨µÀ */
-	STREAM_TRASN_NEGATIVE 
-}STREAM_TRASN_DIR;
-/** 
+	typedef enum __STREAM_TRANS_PROTOCOL
+	{
+		/** UDP ï¿½ï¿½ï¿½ï¿½ Ô­Ê¼ï¿½ï¿½ */
+		UDP_UNICAST_RAW = 1,
+		/** UDP ï¿½ï¿½ï¿½ï¿½ RTP ï¿½ï¿½×° */
+		UDP_UNICAST_RTP,
+
+		/** UDP ï¿½é²¥ Ô­Ê¼ï¿½ï¿½ */
+		UDP_MULTICAST_RAW,
+		/** UDP ï¿½é²¥ RTP ï¿½ï¿½×° */
+		UDP_MULTICAST_RTP,
+
+		/** UDP ï¿½ï¿½ï¿½ï¿½ FEC ï¿½ï¿½ */
+		UDP_UNICAST_FEC = 10,
+
+		/** TCP Ô­Ê¼ï¿½ï¿½ */
+		TCP_RAW = 20,
+		/** TCP RTP ï¿½ï¿½×° */
+		TCP_RTP,
+		/** TCP ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½Ê½ */
+		TCP_CUSTOM
+
+	} STREAM_TRANS_PROTOCOL;
+	/** 
  * @}
  */
 
-/** 
- * @name Éè±¸ÉÏÏß·½Ê½
+	/** 
+ * @name ï¿½ï¿½ï¿½ï¿½ï¿½ä·½ï¿½ï¿½
  * @{
  */
-typedef enum __DEVICE_CREATE_MODE
-{
-	/** Ö÷¶¯Á¬½Ó´´½¨ */
-	DEVICE_CREATE_ACTIVE = 0,
-	/** ±»¶¯Á¬½Ó´´½¨ */
-	DEVICE_CREATE_PASSIVE
-		
-}DEVICE_CREATE_MODE;
-/** 
+	typedef enum __STREAM_TRASN_DIR
+	{
+		/** ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½Ó¦ï¿½è±¸ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ */
+		STREAM_TRASN_POSITIVE = 0,
+		/** ï¿½ï¿½ï¿½Í£ï¿½ï¿½ï¿½Ó¦ï¿½è±¸ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ */
+		STREAM_TRASN_NEGATIVE
+	} STREAM_TRASN_DIR;
+	/** 
  * @}
  */
 
-/** 
- * @name Éè±¸¶Ï¿ªÔ­Òò
+	/** 
+ * @name ï¿½è±¸ï¿½ï¿½ï¿½ß·ï¿½Ê½
  * @{
  */
-typedef enum __DEVICE_DELETE_REASON
-{
-	/** Ö÷¶¯¶Ï¿ª, ÓÉÉÏ²ãÔ­Òò¶Ï¿ª */ 
-	DEVICE_DELETE_ACTIVE = 1,
-	/** ±»¶¯¶Ï¿ª£¬ÓÉÉè±¸µÈÔ­Òò¶Ï¿ª */ 
-	DEVICE_DELETE_PASSIVE = 2,
-	/** ³¬Ê±¶Ï¿ª */ 
-	DEVICE_DELETE_TIMEOUT = 3,
-	/** Óöµ½´íÎó(°üÀ¨·¢ËÍ/½ÓÊÕÏûÏ¢Êý¾Ý´íÎó£¬ÍøÂçÒì³£µÈ) */
-	DEVICE_DELETE_ERROR = 4
-}DEVICE_DELETE_REASON;
-/** 
+	typedef enum __DEVICE_CREATE_MODE
+	{
+		/** ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó´ï¿½ï¿½ï¿½ */
+		DEVICE_CREATE_ACTIVE = 0,
+		/** ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó´ï¿½ï¿½ï¿½ */
+		DEVICE_CREATE_PASSIVE
+
+	} DEVICE_CREATE_MODE;
+	/** 
  * @}
  */
 
-/** 
- * @name ·µ»Ø´úÂë
+	/** 
+ * @name ï¿½è±¸ï¿½Ï¿ï¿½Ô­ï¿½ï¿½
  * @{
  */
-typedef enum __RESULT_CODE
-{
-	/** ³É¹¦ */
-	RESULT_CODE_OK  = 0,
-	/** ³öÏÖ´íÎó */
-	RESULT_CODE_ERR = -1,
-	/** ²Ù×÷Ê§°Ü */
-	RESULT_CODE_FAIL = -2, 
-	/** »á»°¹ýÆÚ */
-	RESULT_CODE_PAST = -301,
-	/** Ã»ÓÐÈ¨ÏÞ */
-	RESULT_CODE_REFUSE = -302,
-	/** ³¬Ê± */
-	RESULT_CODE_TIMEOUT	= -401
-
-}RESULT_CODE;
-/** 
+	typedef enum __DEVICE_DELETE_REASON
+	{
+		/** ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½, ï¿½ï¿½ï¿½Ï²ï¿½Ô­ï¿½ï¿½Ï¿ï¿½ */
+		DEVICE_DELETE_ACTIVE = 1,
+		/** ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è±¸ï¿½ï¿½Ô­ï¿½ï¿½Ï¿ï¿½ */
+		DEVICE_DELETE_PASSIVE = 2,
+		/** ï¿½ï¿½Ê±ï¿½Ï¿ï¿½ */
+		DEVICE_DELETE_TIMEOUT = 3,
+		/** ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½Ý´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ì³£ï¿½ï¿½) */
+		DEVICE_DELETE_ERROR = 4
+	} DEVICE_DELETE_REASON;
+	/** 
  * @}
  */
 
-/** 
- * @name Éè±¸²ÎÊý
+	/** 
+ * @name ï¿½ï¿½ï¿½Ø´ï¿½ï¿½ï¿½
  * @{
  */
-typedef struct __DEVICE_PARAM
-{
-	struct __DEVICE_PARAM *next;
+	typedef enum __RESULT_CODE
+	{
+		/** ï¿½É¹ï¿½ */
+		RESULT_CODE_OK = 0,
+		/** ï¿½ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ */
+		RESULT_CODE_ERR = -1,
+		/** ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½ */
+		RESULT_CODE_FAIL = -2,
+		/** ï¿½á»°ï¿½ï¿½ï¿½ï¿½ */
+		RESULT_CODE_PAST = -301,
+		/** Ã»ï¿½ï¿½È¨ï¿½ï¿½ */
+		RESULT_CODE_REFUSE = -302,
+		/** ï¿½ï¿½Ê± */
+		RESULT_CODE_TIMEOUT = -401
 
-	int8 path[64];
-	int8 *pvalue;
-}DEVICE_PARAM;
-/** 
+	} RESULT_CODE;
+	/** 
  * @}
  */
 
-/** 
- * @name Éè±¸»ù±¾ÐÅÏ¢
+	/** 
+ * @name ï¿½è±¸ï¿½ï¿½ï¿½ï¿½
  * @{
  */
-typedef struct __DEVICE_BASE_INFO
-{
-	/** Éè±¸ID */
-	int8 id[128];
-	/** Éè±¸Ãû³Æ */
-	int8 name[128];
-	/** °æ±¾ÁÐ±í */
-	int8 ver_list[128];
+	typedef struct __DEVICE_PARAM
+	{
+		struct __DEVICE_PARAM *next;
 
-	/** ÊÓÆµÊäÈëÍ¨µÀÊý */
-	int32 vin_num;
-	/** ÊÓÆµ±àÂëÍ¨µÀÊý£¬Îªvin_numµÄ±¶Êý */
-	int32 venc_num;
-
-	/** ÊÓÆµ½âÂëÍ¨µÀÊý */
-	int32 vdec_num;
-
-	/** ÒôÆµÊäÈëÍ¨µÀÊý */
-	int32 ain_num;
-	/** ÒôÆµ±àÂëÍ¨µÀÊý£¬Îªain_numµÄ±¶Êý */
-	int32 aenc_num;
-
-	/** ´®¿ÚÍ¨µÀÊý */ 
-	int32 uart_num;
-}DEVICE_BASE_INFO;
-/** 
+		int8 path[64];
+		int8 *pvalue;
+	} DEVICE_PARAM;
+	/** 
  * @}
  */
 
-typedef void * DEVICE_Handle;
+	/** 
+ * @name ï¿½è±¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+ * @{
+ */
+	typedef struct __DEVICE_BASE_INFO
+	{
+		/** ï¿½è±¸ID */
+		int8 id[128];
+		/** ï¿½è±¸ï¿½ï¿½ï¿½ï¿½ */
+		int8 name[128];
+		/** ï¿½æ±¾ï¿½Ð±ï¿½ */
+		int8 ver_list[128];
 
-typedef void ( DXSDKAPI *DX_NVT_CB_device_create)(DEVICE_Handle handle, void *context, int8 *ip, int32 port, DEVICE_CREATE_MODE mode);
+		/** ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ */
+		int32 vin_num;
+		/** ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªvin_numï¿½Ä±ï¿½ï¿½ï¿½ */
+		int32 venc_num;
 
-typedef void (DXSDKAPI * DX_NVT_CB_set_response)(DEVICE_Handle handle, int32 result_code, void *msg_context);
-typedef void (DXSDKAPI * DX_NVT_CB_get_response)(DEVICE_Handle handle, int32 result_code, DEVICE_PARAM *param_list, void *msg_context);
-typedef void (DXSDKAPI * DX_NVT_CB_exe_response)(DEVICE_Handle handle, int32 result_code, void *msg_context);
-typedef void (DXSDKAPI * DX_NVT_CB_snap_response)(DEVICE_Handle handle, int32 result_code, SNAP_FORMAT format, int32 chn, int8 *pdata, int32 len);
-typedef void (DXSDKAPI * DX_NVT_CB_open_media_response)(DEVICE_Handle handle, int32 result_code, void *msg_context);
-typedef void (DXSDKAPI * DX_NVT_CB_close_media_response)(DEVICE_Handle handle, int32 result_code, void *msg_context);
-/** 
- *  param ÎªÃ½ÌåÁ÷ÀàÐÍ²ÎÊý
- *  paramÎªÒ»¸ö32bit¸´ºÏÊý£¬¹²5¸öÓò£¬±íÊ¾5¸öÀàÐÍ£¬¶¨ÒåÈçÏÂ£º
+		/** ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ */
+		int32 vdec_num;
+
+		/** ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ */
+		int32 ain_num;
+		/** ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªain_numï¿½Ä±ï¿½ï¿½ï¿½ */
+		int32 aenc_num;
+
+		/** ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ */
+		int32 uart_num;
+	} DEVICE_BASE_INFO;
+	/** 
+ * @}
+ */
+
+	typedef void *DEVICE_Handle;
+
+	typedef void(DXSDKAPI *DX_NVT_CB_device_create)(DEVICE_Handle handle, void *context, int8 *ip, int32 port, DEVICE_CREATE_MODE mode);
+
+	typedef void(DXSDKAPI *DX_NVT_CB_set_response)(DEVICE_Handle handle, int32 result_code, void *msg_context);
+	typedef void(DXSDKAPI *DX_NVT_CB_get_response)(DEVICE_Handle handle, int32 result_code, DEVICE_PARAM *param_list, void *msg_context);
+	typedef void(DXSDKAPI *DX_NVT_CB_exe_response)(DEVICE_Handle handle, int32 result_code, void *msg_context);
+	typedef void(DXSDKAPI *DX_NVT_CB_snap_response)(DEVICE_Handle handle, int32 result_code, SNAP_FORMAT format, int32 chn, int8 *pdata, int32 len);
+	typedef void(DXSDKAPI *DX_NVT_CB_open_media_response)(DEVICE_Handle handle, int32 result_code, void *msg_context);
+	typedef void(DXSDKAPI *DX_NVT_CB_close_media_response)(DEVICE_Handle handle, int32 result_code, void *msg_context);
+	/** 
+ *  param ÎªÃ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í²ï¿½ï¿½ï¿½
+ *  paramÎªÒ»ï¿½ï¿½32bitï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½5ï¿½ï¿½ï¿½ò£¬±ï¿½Ê¾5ï¿½ï¿½ï¿½ï¿½ï¿½Í£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â£ï¿½
  *  Bit31~Bit28	Bit27~Bit24	Bit23~Bit16	Bit15~Bit8	Bit7~Bit0
- *     ÀàÐÍ5	   ÀàÐÍ4	   ÀàÐÍ3	   ÀàÐÍ2	  ÀàÐÍ1
- *  ÀàÐÍ1¶¨Òå£º1-ÊÓÆµ£¬2-ÒôÆµ£¬3-´®¿Ú£¬9-BMPÍ¼Æ¬£¬10-JPGÍ¼Æ¬£»
- *  ÀàÐÍ2½ö¶ÔÒôÊÓÆµÓÐÒâÒå£¬±íÊ¾±àÂëËã·¨£¬¾ßÌå¶¨Òå¼ûÏà¹ØÎÄµµ£»
- *  ÀàÐÍ3¶¨Òå£ºÊÓÆµÊ±±íÊ¾»­Ãæ´óÐ¡£¬ÒôÆµÊ±±íÊ¾Î»¿í£»
- *  ÀàÐÍ4¶¨Òå£ºÊÓÆµ±íÊ¾±àÂëÖ¡ÀàÐÍ£¬ÒôÆµ±íÊ¾²ÉÑùÂÊ£»
- *  ÀàÐÍ5ÎªÊý¾ÝÆ¬ÀàÐÍ£¬¾ßÌå¶¨Òå¼ûÏà¹ØÎÄµµ
+ *     ï¿½ï¿½ï¿½ï¿½5	   ï¿½ï¿½ï¿½ï¿½4	   ï¿½ï¿½ï¿½ï¿½3	   ï¿½ï¿½ï¿½ï¿½2	  ï¿½ï¿½ï¿½ï¿½1
+ *  ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½ï¿½å£º1-ï¿½ï¿½Æµï¿½ï¿½2-ï¿½ï¿½Æµï¿½ï¿½3-ï¿½ï¿½ï¿½Ú£ï¿½9-BMPÍ¼Æ¬ï¿½ï¿½10-JPGÍ¼Æ¬ï¿½ï¿½
+ *  ï¿½ï¿½ï¿½ï¿½2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½ï¿½å£¬ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ã·¨ï¿½ï¿½ï¿½ï¿½ï¿½å¶¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½
+ *  ï¿½ï¿½ï¿½ï¿½3ï¿½ï¿½ï¿½å£ºï¿½ï¿½ÆµÊ±ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ÆµÊ±ï¿½ï¿½Ê¾Î»ï¿½ï¿½ï¿½ï¿½
+ *  ï¿½ï¿½ï¿½ï¿½4ï¿½ï¿½ï¿½å£ºï¿½ï¿½Æµï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½Ö¡ï¿½ï¿½ï¿½Í£ï¿½ï¿½ï¿½Æµï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½Ê£ï¿½
+ *  ï¿½ï¿½ï¿½ï¿½5Îªï¿½ï¿½ï¿½ï¿½Æ¬ï¿½ï¿½ï¿½Í£ï¿½ï¿½ï¿½ï¿½å¶¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½
  */
 
-typedef void (DXSDKAPI *  DX_NVT_CB_media_arrive)(DEVICE_Handle handle, STREAM_MEDIA_TYPE type, int32 chn, int8 *buf, int32 len, uint32 param);
+	typedef void(DXSDKAPI *DX_NVT_CB_media_arrive)(DEVICE_Handle handle, STREAM_MEDIA_TYPE type, int32 chn, int8 *buf, int32 len, uint32 param);
 
-/** 
- * @n Éè±¸¶Ï¿ªÈýÖÖÇé¿ö£º
- * @n 1¡¢ÉÏ²ãµ÷ÓÃDX_NVT_delete_deviceÖ÷¶¯È¥¶Ï¿ªÉè±¸
- * @n 2¡¢Éè±¸Ö÷¶¯¶Ï¿ª
- * @n 3¡¢Óöµ½Òì³£Çé¿ö»òÕß³¬Ê±SDKÖ÷¶¯¶Ï¿ª
- * @n ÒÔÉÏÈýÖÖÇé¿ö¶¼»á»Øµ÷²¢ÇÒ½ö»Øµ÷Ò»´ÎDX_NVT_CB_deleteº¯Êý±íÊ¾Éè±¸ÒÑ¾­¶Ï¿ª
- * @n DX_NVT_CB_delete»Øµ÷Ö´ÐÐÍêºó£¬Éè±¸±äÎª¾ä±úÎÞÐ§
+	/** 
+ * @n ï¿½è±¸ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ * @n 1ï¿½ï¿½ï¿½Ï²ï¿½ï¿½ï¿½ï¿½DX_NVT_delete_deviceï¿½ï¿½ï¿½ï¿½È¥ï¿½Ï¿ï¿½ï¿½è±¸
+ * @n 2ï¿½ï¿½ï¿½è±¸ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½
+ * @n 3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ì³£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß³ï¿½Ê±SDKï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½
+ * @n ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½Ò½ï¿½ï¿½Øµï¿½Ò»ï¿½ï¿½DX_NVT_CB_deleteï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½è±¸ï¿½Ñ¾ï¿½ï¿½Ï¿ï¿½
+ * @n DX_NVT_CB_deleteï¿½Øµï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è±¸ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ð§
  * @n
  */
-typedef void (DXSDKAPI * DX_NVT_CB_delete)(DEVICE_Handle handle, DEVICE_DELETE_REASON reason);
+	typedef void(DXSDKAPI *DX_NVT_CB_delete)(DEVICE_Handle handle, DEVICE_DELETE_REASON reason);
 
+	void DXSDKAPI DX_NVT_set_callback(
+		DX_NVT_CB_device_create cb_create,
+		DX_NVT_CB_set_response cb_set, DX_NVT_CB_get_response cb_get,
+		DX_NVT_CB_exe_response cb_exe, DX_NVT_CB_snap_response cb_snap,
+		DX_NVT_CB_open_media_response cb_open_media,
+		DX_NVT_CB_close_media_response cb_close_media,
+		DX_NVT_CB_media_arrive cb_meida_arrive,
+		DX_NVT_CB_delete cb_delete);
 
-void DXSDKAPI DX_NVT_set_callback(
-						 DX_NVT_CB_device_create cb_create, 
-						 DX_NVT_CB_set_response cb_set,  DX_NVT_CB_get_response cb_get, 
-						 DX_NVT_CB_exe_response cb_exe,  DX_NVT_CB_snap_response cb_snap,
-						 DX_NVT_CB_open_media_response cb_open_media,
-						 DX_NVT_CB_close_media_response cb_close_media,
-						 DX_NVT_CB_media_arrive cb_meida_arrive,
-						 DX_NVT_CB_delete cb_delete);
+	int32 DXSDKAPI DX_NVT_open(int32 udp_min_port, int32 udp_max_port);
+	void DXSDKAPI DX_NVT_close(void);
 
-int32 DXSDKAPI DX_NVT_open(int32 udp_min_port, int32 udp_max_port);
-void DXSDKAPI DX_NVT_close(void);
+	int32 DXSDKAPI DX_NVT_start_listen(int32 port, int8 *ip);
+	void DXSDKAPI DX_NVT_stop_listen(int32 port);
+	void DXSDKAPI DX_NVT_stop_all_listen(void);
 
-int32 DXSDKAPI DX_NVT_start_listen(int32 port, int8 *ip);
-void DXSDKAPI DX_NVT_stop_listen(int32 port);
-void DXSDKAPI DX_NVT_stop_all_listen(void);
+	int32 DXSDKAPI DX_NVT_add_device(int8 *ip, int32 port, int8 *local_ip, void *context);
 
+	/** 
+ * @brief ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½è±¸ï¿½ï¿½ï¿½ï¿½
+ * @n 1. ï¿½ï¿½ï¿½ï¿½DX_NVT_request_delete_deviceÍ¨Öªsdkï¿½ï¿½Òªï¿½Ï¿ï¿½ï¿½è±¸
+ * @n 2. ï¿½Øµï¿½DX_NVT_CB_deleteÖ´ï¿½Ð£ï¿½ï¿½ï¿½Ê¾ï¿½è±¸ï¿½Ñ¾ï¿½ï¿½Ï¿ï¿½
+ * @n 3. ï¿½ï¿½ï¿½ï¿½DX_NVT_release_deviceï¿½Í·ï¿½ï¿½è±¸ï¿½ï¿½ï¿½ï¿½ï¿½Ô´
+ * @n ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½2, 3
+ */
+	void DXSDKAPI DX_NVT_request_delete_device(DEVICE_Handle handle);
+	void DXSDKAPI DX_NVT_release_device_handle(DEVICE_Handle handle);
 
-int32 DXSDKAPI DX_NVT_add_device(int8 *ip, int32 port, int8 *local_ip, void *context);
+	int32 DXSDKAPI DX_NVT_set_device_context(DEVICE_Handle handle, void *device_context);
+	void *DXSDKAPI DX_NVT_get_device_context(DEVICE_Handle handle);
 
-/** 
- * @brief Ö÷¶¯¶Ï¿ªÉè±¸²½Öè
- * @n 1. µ÷ÓÃDX_NVT_request_delete_deviceÍ¨ÖªsdkÐèÒª¶Ï¿ªÉè±¸
- * @n 2. »Øµ÷DX_NVT_CB_deleteÖ´ÐÐ£¬±íÊ¾Éè±¸ÒÑ¾­¶Ï¿ª
- * @n 3. µ÷ÓÃDX_NVT_release_deviceÊÍ·ÅÉè±¸¾ä±ú×ÊÔ´
- * @n Èç¹û±»¶¯¶Ï¿ª£¬ÔòÎª²½Öè2, 3
- */ 
-void DXSDKAPI DX_NVT_request_delete_device(DEVICE_Handle handle);
-void DXSDKAPI DX_NVT_release_device_handle(DEVICE_Handle handle);
+	DEVICE_BASE_INFO *DXSDKAPI DX_NVT_get_device_base_info(DEVICE_Handle handle);
+	int32 DXSDKAPI DX_NVT_get_tcp_local_addr(DEVICE_Handle handle, int8 *local_ip, int32 *local_port);
 
+	int32 DXSDKAPI DX_NVT_set(DEVICE_Handle handle, int8 *path, int8 *pvalue, void *msg_context);
+	int32 DXSDKAPI DX_NVT_get(DEVICE_Handle handle, int8 *path, void *msg_context);
+	int32 DXSDKAPI DX_NVT_exe(DEVICE_Handle handle, int8 *path[], int8 *pvalue[], int32 count, void *msg_context);
+	int32 DXSDKAPI DX_NVT_snap(DEVICE_Handle handle, int32 chn, SNAP_FORMAT format, int32 quality); /** SDK ï¿½ï¿½Ç°ï¿½æ±¾ DX_NVT_snap ï¿½ï¿½Ö§ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 
-int32 DXSDKAPI DX_NVT_set_device_context(DEVICE_Handle handle, void *device_context);
-void * DXSDKAPI DX_NVT_get_device_context(DEVICE_Handle handle);
+	int32 DXSDKAPI DX_NVT_init_media_param(DEVICE_Handle handle, int8 *local_ip);
 
-DEVICE_BASE_INFO * DXSDKAPI DX_NVT_get_device_base_info(DEVICE_Handle handle);
-int32 DXSDKAPI DX_NVT_get_tcp_local_addr(DEVICE_Handle handle, int8 *local_ip, int32 *local_port);
+	int32 DXSDKAPI DX_NVT_open_media(DEVICE_Handle handle, STREAM_MEDIA_TYPE type, int32 chn, int32 dir, int32 protocol, void *msg_context);
+	int32 DXSDKAPI DX_NVT_close_media(DEVICE_Handle handle, STREAM_MEDIA_TYPE type, int32 chn, int32 dir, int32 protocol);
 
-int32 DXSDKAPI DX_NVT_set(DEVICE_Handle handle, int8 *path, int8 *pvalue, void *msg_context);
-int32 DXSDKAPI DX_NVT_get(DEVICE_Handle handle, int8 *path, void *msg_context);
-int32 DXSDKAPI DX_NVT_exe(DEVICE_Handle handle, int8 *path[], int8 *pvalue[], int32 count, void *msg_context);
-int32 DXSDKAPI DX_NVT_snap(DEVICE_Handle handle, int32 chn, SNAP_FORMAT format, int32 quality); /** SDK µ±Ç°°æ±¾ DX_NVT_snap ²»Ö§³ÖÏûÏ¢ÉÏÏÂÎÄ */ 
+	int32 DXSDKAPI DX_NVT_open_media2(DEVICE_Handle handle, STREAM_MEDIA_TYPE type, int32 chn, int32 dir, int32 protocol, int8 *ip, int32 port, void *msg_context);
+	int32 DXSDKAPI DX_NVT_close_media2(DEVICE_Handle handle, STREAM_MEDIA_TYPE type, int32 chn, int32 dir, int32 protocol, int8 *ip, int32 port);
 
-int32 DXSDKAPI DX_NVT_init_media_param(DEVICE_Handle handle, int8 *local_ip);
+	int32 DXSDKAPI DX_NVT_set_media_receive_buf(DEVICE_Handle handle, STREAM_MEDIA_TYPE type, int32 chn, int8 *buf, int32 buf_len);
+	int32 DXSDKAPI DX_NVT_send_media(DEVICE_Handle handle, STREAM_MEDIA_TYPE type, int32 chn, int8 *buf, int32 len);
 
-int32 DXSDKAPI DX_NVT_open_media(DEVICE_Handle handle, STREAM_MEDIA_TYPE type, int32 chn, int32 dir, int32 protocol, void *msg_context);
-int32 DXSDKAPI  DX_NVT_close_media(DEVICE_Handle handle, STREAM_MEDIA_TYPE type, int32 chn, int32 dir, int32 protocol);
-
-int32 DXSDKAPI DX_NVT_open_media2(DEVICE_Handle handle, STREAM_MEDIA_TYPE type, int32 chn, int32 dir, int32 protocol, int8 *ip, int32 port, void *msg_context);
-int32 DXSDKAPI DX_NVT_close_media2(DEVICE_Handle handle, STREAM_MEDIA_TYPE type, int32 chn, int32 dir, int32 protocol, int8 *ip, int32 port);
-
-int32 DXSDKAPI DX_NVT_set_media_receive_buf(DEVICE_Handle handle, STREAM_MEDIA_TYPE type, int32 chn, int8 *buf, int32 buf_len);
-int32 DXSDKAPI DX_NVT_send_media(DEVICE_Handle handle, STREAM_MEDIA_TYPE type, int32 chn, int8 *buf, int32 len);
- 
-const char* DXSDKAPI DX_NVT_getParamPath( DEVICE_PARAM * param );
+	const char *DXSDKAPI DX_NVT_getParamPath(DEVICE_PARAM *param);
 
 #ifdef __cplusplus
 }

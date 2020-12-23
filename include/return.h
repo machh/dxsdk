@@ -1,69 +1,39 @@
-/**
- * @file return.h  ·µ»ØÖµ¶¨Òå
- *
- * Copyright (C) 2009 ±±¾©´óÑ¶¿Æ¼¼ÓÐÏÞ¹«Ë¾ÑÐ·¢²¿ 
- * 
- * @author wenming <wenming.studio@gmail.com>
- * @version 0.1
- * @date 2009.5.31
- *
- *
- */
 
 #ifndef __RETURN_H__
 #define __RETURN_H__
 
-
 /** 
- * @name Í¨ÓÃº¯Êý·µ»ØÖµ¶¨Òå
+ * @name Í¨ï¿½Ãºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½
  * @{
  */
-/** ²Ù×÷³É¹¦ */
-#define GEN_OK     (0)
-/** ²Ù×÷´íÎó */ 
-#define GEN_ERR    (-1)
-/** ²Ù×÷Ê§°Ü */ 
-#define GEN_FAIL   (-2)
-/** ÈÝÆ÷ÒÑÂú */
-#define GEN_FULL   (-6)
-/** ÒÑ¾­´´½¨ */
-#define GEN_EXIST  (-7)
-/** Íê³É/½áÊø */
-#define GEN_DONE   (-8)
+/** ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½ */
+#define GEN_OK (0)
+/** ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
+#define GEN_ERR (-1)
+/** ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½ */
+#define GEN_FAIL (-2)
+/** ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
+#define GEN_FULL (-6)
+/** ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ */
+#define GEN_EXIST (-7)
+/** ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ */
+#define GEN_DONE (-8)
 
-/** ÄÚ´æ·ÖÅäÊ§°Ü */
-#define GEN_MEM    (-11)
-/** ³¬Ê± */
+/** ï¿½Ú´ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½ */
+#define GEN_MEM (-11)
+/** ï¿½ï¿½Ê± */
 #define GEN_TIME_OUT (-301)
-/** ³¬¹ýÊýÄ¿ÉÏÏÞ */
+/** ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ */
 #define GEN_UPPER_LIMIT (-302)
-/** Ã»ÓÐÈ¨ÏÞ */
-#define GEN_REFUSE   (-303)
-/** ¹ýÆÚµÄ£¬½áÊøµÄ */
-#define GEN_PAST     (-305)
-/** ²ÎÊý´íÎó */
-#define GEN_INVALID_PARAM  (-306)
+/** Ã»ï¿½ï¿½È¨ï¿½ï¿½ */
+#define GEN_REFUSE (-303)
+/** ï¿½ï¿½ï¿½ÚµÄ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
+#define GEN_PAST (-305)
+/** ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
+#define GEN_INVALID_PARAM (-306)
 
 /** 
  * @}
- */ 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ */
 
 #endif ///__RETURN_H__
-
