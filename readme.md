@@ -1,3 +1,3 @@
-a wrapp dxsdk for daxun ip camera
+a wrapp  for daxun ip camera
 
 support rtsp 
